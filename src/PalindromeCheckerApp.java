@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class PalindromeCheckerApp {
 
@@ -11,16 +13,18 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
+        Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
         for (char c : input.toCharArray()) {
+            queue.add(c);
             stack.push(c);
         }
 
         boolean isPalindrome = true;
 
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
+        while (!queue.isEmpty()) {
+            if (queue.poll() != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
