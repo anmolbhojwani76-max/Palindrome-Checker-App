@@ -11,23 +11,7 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        PalindromeStrategy strategy = new StackStrategy();
-        boolean isPalindrome = strategy.check(input);
-
-        System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + isPalindrome);
-
-        scanner.close();
-    }
-}
-
-interface PalindromeStrategy {
-    boolean check(String input);
-}
-
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
+        long startTime = System.nanoTime();
 
         Stack<Character> stack = new Stack<>();
 
@@ -35,11 +19,22 @@ class StackStrategy implements PalindromeStrategy {
             stack.push(c);
         }
 
+        boolean isPalindrome = true;
+
         for (char c : input.toCharArray()) {
             if (c != stack.pop()) {
-                return false;
+                isPalindrome = false;
+                break;
             }
         }
-        return true;
+
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
+
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("Execution Time : " + executionTime + " ns");
+
+        scanner.close();
     }
 }
